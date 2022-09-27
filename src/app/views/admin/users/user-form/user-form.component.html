@@ -1,0 +1,65 @@
+<div class="container">
+  <h4 class="mt-2">{{!user.idUser ? "Crear nuevo usuario": "Modificar usuario"}}</h4>
+  <form
+      (keydown.enter)="$event.preventDefault()"
+      #formuser="ngForm"
+      (ngSubmit)="submitForm(formuser)"
+      novalidate="novalidate"
+    >
+      <div class="modal-body" id="modal">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="label-input required-label">Correo electrónico</label>
+              <div>
+                <input
+                  #email="ngModel"
+                  [(ngModel)]="user.email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  type="text"
+                  maxlength="50"
+                  required="required"
+                  autocomplete="off"
+                />
+                <div *ngIf="email.errors?.required && email.touched" class="error">
+                  El correo electrónico es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="label-input required-label">Usuario</label>
+              <div>
+                <input
+                  #user1="ngModel"
+                  [(ngModel)]="user.user1"
+                  id="user1"
+                  name="user1"
+                  class="form-control"
+                  type="text"
+                  maxlength="50"
+                  required="required"
+                  autocomplete="off"
+                />
+                <div *ngIf="user1.errors?.required && user1.touched" class="error">
+                  El nombre de usuario es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="text-right">
+          <!-- <button (click)="update(user)" pButton class="p-button-primary me-3" type="button" icon="pi pi-pencil" iconPos="left"></button> -->
+          <button [disabled]="btnSubmit" pButton type="submit" class="p-button-primary me-3">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+    <p-toast></p-toast>
+</div>

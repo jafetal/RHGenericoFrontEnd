@@ -1,0 +1,42 @@
+<section class="container">
+  <div class="mt-3 mt-md-5">
+    <h3>
+      Administración de usuarios
+    </h3>
+  </div>
+  <div class="row justify-content-end ">
+    <button (click)="create()" pButton class="p-button-success me-3 mb-1" type="button" icon="pi pi-plus" iconPos="left"></button>
+  </div>
+  <p-table [value]="userList" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Id</th>
+            <th>Usuario</th>
+            <th>Correo electrónico</th>
+            <th>Sexo</th>
+            <th>Estatus</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr>
+            <td>{{user.idUser}}</td>
+            <td>{{user.user1}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.status ? "Activo": "Inactivo"}}</td>
+            <td>
+              <button (click)="update(user)" pButton class="p-button-primary me-3" type="button" icon="pi pi-pencil" iconPos="left"></button>
+              <button *ngIf="user.status" pButton (click)="delete(user.idUser)" class="p-button-danger" type="button" icon="pi pi-trash" iconPos="left"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <div class="mt-4">
+          <h4>No se han encontrado registros</h4>
+        </div>
+    </ng-template>
+  </p-table>
+  <p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-toast></p-toast>
+</section>
