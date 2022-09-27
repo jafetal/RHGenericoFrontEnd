@@ -7,4 +7,13 @@ export function validateEmptyFields(form: NgForm): void {
       control.markAsDirty({ onlySelf: true });
     });
   }
+
+  export function validatePassword(form: NgForm): void {
+    if(form.controls['password'] != form.controls['confirmPassword']){
+      form.controls['password'].markAsTouched({ onlySelf: true });
+      form.controls['password'].markAsDirty({ onlySelf: true });
+      form.controls['confirmPassword'].markAsTouched({ onlySelf: true });
+      form.controls['confirmPassword'].markAsDirty({ onlySelf: true });
+    }
+  }
   

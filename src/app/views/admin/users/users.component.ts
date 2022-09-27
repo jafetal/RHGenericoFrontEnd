@@ -29,7 +29,6 @@ export class UsersComponent implements OnInit {
   public getUsers(): void{
     this.userService.get().subscribe((data) => {
       this.userList = data;
-      console.log(data);
     })
   }
 
@@ -41,7 +40,7 @@ export class UsersComponent implements OnInit {
       accept: () => {
         this.userService.delete(idUser).subscribe(() => {
           this.messageService.add(
-            {severity:'success', summary:'Elemento desactivado'}
+            {severity:'success', summary:'Usuario inhabilitado'}
           );
           this.getUsers();
         })
@@ -62,7 +61,7 @@ export class UsersComponent implements OnInit {
   public update(user: User): void {
 
     this.bsModalRef = this.modalService.show(UserFormComponent, this.modalOptions);
-    this.bsModalRef.content.user = user;
+    this.bsModalRef.content.user = {...user};
     this.bsModalRef.content.onClose = (cerrar: boolean) => {
       if (cerrar) {
         this.getUsers();

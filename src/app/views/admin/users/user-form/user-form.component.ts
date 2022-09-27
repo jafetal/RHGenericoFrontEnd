@@ -20,6 +20,7 @@ export class UserFormComponent implements OnInit {
   public createMessage = 'El usuario ha sido agregado';
   public updateMessage = 'El usuario ha sido modificado';
   public btnSubmit = false;
+  public confirmPasswordV: string;
 
   constructor(private userService: UserService,
     private messageService: MessageService,
@@ -28,16 +29,16 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitForm(formulario: NgForm) {
+  submitForm(form: NgForm) {
     this.btnSubmit = true;
-    if (!formulario.valid) {
-      Utility.validateEmptyFields(formulario);
+    if (!form.valid) { 
+      Utility.validateEmptyFields(form);
       this.btnSubmit = false;
       return;
     }
 
     if (!this.user.idUser) {
-      this.create(formulario);
+      this.create(form);
     } else if (this.user.idUser) {
       this.update();
     }
@@ -50,7 +51,6 @@ export class UserFormComponent implements OnInit {
           {severity:'success', summary:this.createMessage}
         );
         form.reset();
-        //this.limpiarFormulario();
         this.onClose(true);
         this.btnSubmit = false;
       },
@@ -78,6 +78,12 @@ export class UserFormComponent implements OnInit {
         this.btnSubmit = false;
       }
     );
+  }
+
+  public genderChange(value: string) {
+    if (value) {
+      this.user.gender = value;
+    }
   }
 
 

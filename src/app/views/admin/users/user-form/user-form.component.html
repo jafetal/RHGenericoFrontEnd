@@ -43,9 +43,87 @@
                   maxlength="50"
                   required="required"
                   autocomplete="off"
+                  minlength="7"
                 />
                 <div *ngIf="user1.errors?.required && user1.touched" class="error">
                   El nombre de usuario es requerido
+                </div>
+                <div *ngIf="user1.errors?.minlength && user1.touched && !user1.errors?.required" class="error">
+                  El usuario requiere de al menos 7 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="label-input required-label">Género</label>
+              <div>
+                <select #gender="ngModel" required class="form-control" name="genderId" [ngModel]="user.gender" (ngModelChange)="genderChange($event)" id="genderId">
+                    <option value="Masculino">
+                      Masculino
+                    </option>
+                    <option value="Femenino">
+                      Femenino
+                    </option>
+                </select>
+                <div *ngIf="gender.errors?.required && gender.touched " class="error">
+                  El género es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="label-input required-label">{{user.idUser > 0 ? "Nueva contraseña":"Contraseña"}}</label>
+              <div>
+                <input
+                  #password="ngModel"
+                  [(ngModel)]="user.password"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  type="password"
+                  maxlength="50"
+                  [required]="!(user.idUser > 0)"
+                  autocomplete="off"
+                  minlength="10"
+                />
+                <div *ngIf="(password.errors?.required && password.touched) && !(user.idUser > 0)" class="error">
+                  La contraseña es requerida
+                </div>
+                <div *ngIf="password.errors?.minlength && password.touched && !password.errors?.required" class="error">
+                  La contraseña requiere de al menos 10 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="label-input required-label">Confirmar contraseña</label>
+              <div>
+                <input
+                  #confirmPassword="ngModel"
+                  [(ngModel)]="confirmPasswordV"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  class="form-control"
+                  type="password"
+                  maxlength="50"
+                  [required]="!(user.idUser > 0)"
+                  autocomplete="off"
+                  minlength="10"
+                />
+                <div *ngIf="(confirmPassword.errors?.required && confirmPassword.touched) && password.touched && !(user.idUser > 0)" class="error">
+                  Es necesario confirmar la contraseña
+                </div>
+                <div *ngIf="(user.password != confirmPasswordV) && confirmPassword.touched && password.touched && !(confirmPassword.errors?.required)" class="error">
+                  Las contraseñas no coinciden
                 </div>
               </div>
             </div>
